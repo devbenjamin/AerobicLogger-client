@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { Table, FormText, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import APIURL from '../helpers/environment';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // fetchWorkouts = () => {
-//   fetch("http://localhost:3000/api/log", {
+//   fetch(`${APIURL}/api/log`, {
 //     method: 'GET',
 //     headers: new Headers({
 //       'Content-Type': 'application/json',
@@ -23,7 +24,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // workoutUpdate = (event, workout) => {
-//   fetch(`http://localhost:3000/api/log/${workout.id}`, {
+//   fetch(`${APIURL}/api/log/${workout.id}`, {
 //     method: 'PUT',
 //     body: JSON.stringify({ log: workout }),
 //     headers: new Headers({
@@ -37,7 +38,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //     })
 // }
 
-// fetch('http://localhost:3000/api/log/', {
+// fetch(`${APIURL}/api/log/`, {
 //   method: 'POST',
 //   body: JSON.stringify({log: this.state}),
 //   headers: new Headers({
@@ -62,7 +63,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // sloganFunc = () => {
   
-//   let url = `http://localhost:3000/slogan/${sloganCount}`
+//   let url = `${APIURL}/slogan/${sloganCount}`
 //   fetch((url), {
 //     method: 'GET',
 //     headers: new Headers({
@@ -82,7 +83,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //     console.log(sloganArr);
 // }
 
-// fetch('http://localhost:3000/', {
+// fetch(`${APIURL}/`, {
 //   method: 'POST',
 //   body: JSON.stringify({
 //     startTime: DataTypes.DATE,
@@ -130,7 +131,7 @@ class SloganInputComponent extends Component {
   
   allSloganFunc = () => {
   
-    let url = `http://localhost:3000/slogan/getAll`
+    let url = `${APIURL}/slogan/getAll`
     fetch((url), {
       method: 'GET',
       headers: new Headers({
@@ -154,7 +155,7 @@ class SloganInputComponent extends Component {
   
       for(let sloganCount=1; sloganCount<5; sloganCount++) {
 
-    let url = `http://localhost:3000/slogan/${sloganCount}`
+    let url = `${APIURL}/slogan/${sloganCount}`
   fetch((url), {
     method: 'GET',
     headers: new Headers({
@@ -179,7 +180,7 @@ class SloganInputComponent extends Component {
   }
 
   fetchSlogan = (index) => {
-    let url = `http://localhost:3000/slogan/${index}`
+    let url = `${APIURL}/slogan/${index}`
     fetch((url), {
       method: 'UPSERT',
       headers: new Headers({
@@ -201,7 +202,7 @@ class SloganInputComponent extends Component {
       )
       // .catch(err => {
       //   if(err==404) {
-      //     fetch(`http://localhost:3000/slogan/`, {
+      //     fetch(`${APIURL}/slogan/`, {
       //       method: 'POST',
       //       body: JSON.stringify({ 
       //         title: this.replaceSlogan 
@@ -237,7 +238,7 @@ class SloganInputComponent extends Component {
 
   handleSubmitDelete(e) {
     // const _this = this;
-      fetch(`http://localhost:3000/slogan/7`, {
+      fetch(`${APIURL}/slogan/7`, {
         method: 'DELETE',
         body: JSON.stringify({ id: e.target.id }),
         headers: new Headers({
@@ -249,7 +250,7 @@ class SloganInputComponent extends Component {
   }
   
   fetchSlogan = (slogIndex) => {
-    let url = `http://localhost:3000/slogan/${slogIndex}`
+    let url = `${APIURL}/slogan/${slogIndex}`
     fetch((url), {
       method: 'GET',
       headers: new Headers({

@@ -10,6 +10,7 @@ import StartButtonBegin from './StartButtonBegin';
 import ElapsedTime from './ElapsedTime';
 import SloganComponent from './SloganComponent';
 import PauseSaveComponent from './PauseSaveComponent';
+import APIURL from '../helpers/environment';
 // import styles from './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import TimeFields from './TimeFields'
@@ -107,7 +108,7 @@ export default class TimeReporting extends Component {
   }
 
   postAerobicData = (index) => {
-    let url = `http://localhost:3000/slogan/${index}`
+    let url = `${APIURL}/slogan/${index}`
     fetch((url), {
       method: 'POST',
       headers: new Headers({
@@ -173,7 +174,7 @@ export default class TimeReporting extends Component {
 
   handleSubmit = (event) => {
     console.log(this.state)
-    fetch('http://localhost:3000/log/', {
+    fetch(`${APIURL}/log/`, {
         method: 'POST',
         body: JSON.stringify({log: this.state}),
         headers: new Headers({

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import APIURL from '../helpers/environment';
 
 export default class Register extends Component {
   constructor() {
@@ -39,7 +40,7 @@ export default class Register extends Component {
 
     let newUserData = { email: email, passwordHash: password, firstName: first, lastName: last }
 
-    fetch('http://localhost:3000/user/createuser', {
+    fetch(`${APIURL}/user/createuser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

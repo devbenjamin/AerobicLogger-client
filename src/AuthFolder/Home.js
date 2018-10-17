@@ -12,6 +12,7 @@ import React, { Component } from 'react';
 // import { homedir } from 'os';
 import Register from './Register'
 import { ThemeProvider } from 'styled-components';
+import APIURL from '../helpers/environment';
 
 class Home extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Home extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:3000/user/signin', {
+    fetch(`${APIURL}/user/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

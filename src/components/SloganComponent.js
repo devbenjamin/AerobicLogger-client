@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import APIURL from '../helpers/environment';
 
 const SloganDiv = styled.div `
   height: 3em;
@@ -27,7 +28,7 @@ class SloganComponent extends Component {
   sloganFunc = () => {
     if(sloganCount===5) sloganCount=1;
     
-    let url = `http://localhost:3000/slogan/${sloganCount}`
+    let url = `h${APIURL}/slogan/${sloganCount}`
     fetch((url), {
       method: 'GET',
       headers: new Headers({
