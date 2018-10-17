@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { Table, FormText, Button } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // fetchWorkouts = () => {
@@ -18,17 +20,7 @@ import { Table, FormText, Button } from 'reactstrap';
 //     })
 // }
 
-// workoutDelete = (event) => {
-//   fetch(`http://localhost:3000/api/log/${event.target.id}`, {
-//     method: 'DELETE',
-//     body: JSON.stringify({ log: { id: event.target.id } }),
-//     headers: new Headers({
-//       'Content-Type': 'application/json',
-//       'Authorization': this.props.auth.sessionToken
-//     })
-//   })
-//     .then((res) => this.fetchWorkouts())
-// }
+
 
 // workoutUpdate = (event, workout) => {
 //   fetch(`http://localhost:3000/api/log/${workout.id}`, {
@@ -123,21 +115,16 @@ import { Table, FormText, Button } from 'reactstrap';
 //             slogan_id: req.body.slogan_id
 // ReactDOM.render(<listGenerator list={[1,2,3,4,5]} />, document.getElementById('listGenerator'));
 
-let sloganDisplay = '',
-sloganDisplay1 = '',
-sloganDisplay2 = '',
-sloganDisplay3 = '',
-sloganDisplay4 = '',
-sloganDisplay5 = '',
-sloganDisplay6 = '';
+let sloganDisplay = '';
 class SloganInputComponent extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       displaySlogan: '',
       replaceNum: 0,
       replaceSlogan: '',
-      replaceNumber: 0
+      replaceNumber: 0,
+      sloganList: [],
     }
   }
   
@@ -156,15 +143,9 @@ class SloganInputComponent extends Component {
       ).then(
         (data) => {
           console.log("data:",data)
-          this.setState({ sloganObject: data })
+          this.setState({ sloganList: data })
       })
       
-    let x = this.state.sloganObject;
-    console.log('sloganObject ln 70:',this.state.sloganObject);
-    let sloganArr = [];
-    x.
-    this.setState({ sloganList: sloganArr  })
-      console.log(sloganArr);
   }
   
   loadSloganArr = () => {
@@ -247,20 +228,26 @@ class SloganInputComponent extends Component {
   // }
   }
   componentDidMount = () => {
-    // sloganFunc();
-    // this.allSloganFunc();
-    // this.loadSloganArr();
+    this.allSloganFunc()
   }
 
-  handleChange(e) {
-    this.setState({value: e.target.value});
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    // let slogIndex = this.state.replaceNumber;
+  handleSubmitDelete(e) {
+    // const _this = this;
+      fetch(`http://localhost:3000/slogan/7`, {
+        method: 'DELETE',
+        body: JSON.stringify({ id: e.target.id }),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      })
+           
   }
-
+  
   fetchSlogan = (slogIndex) => {
     let url = `http://localhost:3000/slogan/${slogIndex}`
     fetch((url), {
@@ -276,13 +263,16 @@ class SloganInputComponent extends Component {
     .then(
       (data) => {
         console.log('data:',data.title)
-    sloganDisplay = data.title;
+    // sloganDisplay = data.title;
         console.log('sloganDisplay:',sloganDisplay)
+        return sloganDisplay
       }
     )
     .catch(
     )
   }
+
+
 
   render(){
     return (
@@ -295,128 +285,52 @@ class SloganInputComponent extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>
-                <div>
-                  <ul>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                    {console.log("in :",this.fetchSlogan(1))}
-                    {console.log('sloganDisplay in display:',sloganDisplay)}
-                    {sloganDisplay}
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>
-                <div>
-                  <ul idName>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                    {this.fetchSlogan(2)}
-                    {sloganDisplay}
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>
-                <div>
-                  <ul>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                    {/* {this.fetchSlogan(3)} */}
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>
-                <div>
-                  <ul>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>
-                <div>
-                  <ul>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>
-                <div>
-                  <ul>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">7</th>
-              <td>
-                <div>
-                  <ul>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">8</th>
-              <td>
-                <div>
-                  <ul>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">9</th>
-              <td>
-                <div>
-                  <ul>
-                    {/* { this.state.sloganList.title.map(tag => <li key={tag.id}>{ tag }</li>) } */}
-                  </ul>
-                </div>
-              </td>
-            </tr>
+            {this.state.sloganList.map((tag, index) => 
+              <tr key={index}>
+              <th scope="row">{index+1}</th>
+              <td >{ tag.title }</td>
+              </tr>) 
+            }
           </tbody>
         </Table>
         <br /><br />
         <div>
           <h5>
-            Enter slogan number to replace and new slogan
+            Add Slogan
           </h5>
         </div>
-        <Table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>New Slogan</th>
-            </tr>
-          </thead>
-        </Table>
         <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} type="number" placeholder="#"  style={{width: 2 + "em" }} maxLength="1" />
-          <input value={this.state.replaceSlogan} onChange={this.handleChange} type="text" placeholder="New Slogan Here"  style={{width: 80 + "%" }} />
+          <input onChange={this.handleChange} type="number" placeholder="#"  style={{width: 2 + "em" }} />
+          <input name="addSlogan" value={this.state.addSlogan} onChange={this.handleChange} type="text" placeholder="        Enter Your New Slogan Here"  style={{width: 80 + "%" }} />
           <br /><br />
-          <Button block>Add/Update</Button>
+          <Button block>Update</Button>
+        </form>
+        <br /><br />
+        <div>
+          <h5>
+            Replace Slogan
+          </h5>
+        </div>
+        <form onSubmit={this.handleSubmit}>
+          <input name="replaceSlogan" value={this.state.replaceSlogan} onChange={this.handleChange} type="text" placeholder="        Enter Your New Slogan Here"  style={{width: 80 + "%" }} />
+          <br /><br />
+          <Button block>Add</Button>
+        </form>
+        <br /><br />
+        <div>
+          <h5>
+            Delete Slogan
+          </h5>
+        </div>
+        <form onSubmit={this.handleSubmitDelete}>
+          <input name="deleteSlogan" value={this.state.updateSlogan} onChange={this.handleChange} type="text" placeholder="        Enter Slogan Number to Delete"  style={{width: 80 + "%" }} />
+          <br /><br />
+          <Button block>Delete</Button>
         </form>
         <br /><br />
       </div>
-    ) 
-  } 
+    )
+  }
 }
 
 export default SloganInputComponent;

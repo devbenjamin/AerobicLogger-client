@@ -40,8 +40,8 @@ export default class App extends Component {
       <Switch>
           <Route path="/" exact>
             <div>
-              <TimeReporting />
-              <SloganInputComponent /> 
+              <TimeReporting token={ this.state.sessionToken }/>
+              <SloganInputComponent token={ this.state.sessionToken }/> 
             </div>
           </Route>
       </Switch>
