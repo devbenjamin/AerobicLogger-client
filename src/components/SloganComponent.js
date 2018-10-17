@@ -28,7 +28,7 @@ class SloganComponent extends Component {
   sloganFunc = () => {
     if(sloganCount===5) sloganCount=1;
     
-    let url = `h${APIURL}/slogan/${sloganCount}`
+    let url = `${APIURL}/slogan/${sloganCount}`
     fetch((url), {
       method: 'GET',
       headers: new Headers({
