@@ -28,12 +28,15 @@ class NavBar extends React.Component {
       <div>
         <div>
           <Navbar color="light" light expand="md">
-            <Link to="/home">Home</Link>
-            <NavbarToggler onClick={this.toggle} />
+            {/* <Link to="/home">Home</Link> */}
+            <div className="main-title">
+              Aerobic Logger
+            </div>
+            <NavbarToggler className="home-toggler" onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <Link to="/">Time Reporting</Link>
+                  {/* <Link to="/">Time Reporting</Link> */}
                 </NavItem>
                 <NavItem className="logout" onClick={() => this.props.clickLogout()}>
                   Logout

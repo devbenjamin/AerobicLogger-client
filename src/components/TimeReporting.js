@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form} from 'reactstrap';
+import { Container, Row, Col, Form, Input} from 'reactstrap';
 // import { Form, Text } from react-form;
 // import Moment from 'react-moment';
 // import 'moment-timezone';
@@ -11,6 +11,7 @@ import ElapsedTime from './ElapsedTime';
 import SloganComponent from './SloganComponent';
 import PauseSaveComponent from './PauseSaveComponent';
 import APIURL from '../helpers/environment';
+import { runInThisContext } from 'vm';
 // import styles from './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import TimeFields from './TimeFields'
@@ -54,10 +55,6 @@ const BiometricsDisplay = styled.div `
   width: 10em;
   padding: 0;
 `
-const ResistanceDisplay = styled.div `
-
-`
-
 
 export default class TimeReporting extends Component {
   constructor(props) {
@@ -82,6 +79,7 @@ export default class TimeReporting extends Component {
       todayYear: new Date().getFullYear(),
       finalSeconds: 0,
       finishTime: '',
+      dbDate: ''
     };
   }
 
@@ -103,7 +101,28 @@ export default class TimeReporting extends Component {
       finishTime: this.state.finishHours + ":" + this.state.finishMinutes + ":" + this.state.finishSeconds,
     })
     console.log('onSave saveTimerClicked:',this.state.saveTimerClicked)
-    
+    // this.setState({ dbDate: "20" + this.state.todayYear + "-" + this.state.todayMonth + "-" + this.state.todayDate})
+    fetch(`http://localhost:3000/sessiondata`, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': this.props.token
+    }),
+      body: JSON.stringify({
+        date: new Date(Date.now()),
+        // startTime: this.state.showStartTime,
+        // finishTime: this.state.staticFinishTime,
+        // totalTime: totalTime,
+        // resistance: this.state.resistance,
+        // elevation: this.state.elevation,
+        // mhr: this.state.mhr,
+        // calories: this.state.calories,
+        // weight: this.state.weight
+      }),
+    })
+    .then(response => console.log(response))
+    .then(workoutData => console.log(workoutData));
+    // event.preventDefault();
     //postAerobicData();
   }
 
@@ -173,23 +192,15 @@ export default class TimeReporting extends Component {
   }
 
   handleSubmit = (event) => {
+    console.log("########minutes:",this.state.minutes)
     console.log(this.state)
-    fetch(`${APIURL}/log/`, {
-        method: 'POST',
-        body: JSON.stringify({log: this.state}),
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': this.props.token
-        })
-    })
-    .then(response => response.json())
-    .then(workoutData => console.log(workoutData));
-    event.preventDefault();
-}
+    // let totalTime = this.state.finishHours + ":" + ("0" + this.state.finishMinutes).slice(-2) + ":" + ("0" + this.state.finishSeconds).slice(-2)
+    
+  }
 
-displayTotal = () => {
-  this.state.finishHours + ":" + ("0" + this.state.finishMinutes).slice(-2) + ":" + ("0" + this.state.finishSeconds).slice(-2)
-}
+  displayTotal = () => {
+    this.state.finishHours + ":" + ("0" + this.state.finishMinutes).slice(-2) + ":" + ("0" + this.state.finishSeconds).slice(-2)
+  }
 
   render(){
     return (
@@ -211,8 +222,8 @@ displayTotal = () => {
               <Col xs="6">
                 <Center>
                   {!(this.state.showStartTime) 
-                  ? <button onClick={this.startClicked } className = "timeButton">
-                      <StartButtonBegin />
+                    ? <button onClick={this.startClicked } className = "timeButton">
+                    <StartButtonBegin />
                     </button> 
                     : <ElapsedTime 
                     timeZero={this.state.timeZero} 
@@ -228,6 +239,7 @@ displayTotal = () => {
                     {/* DATE ON TOP RIGHT */}
                     <SmallBoxes>
                       {this.state.todayMonth}/{this.state.todayDate}/{this.state.todayYear}
+                      
                     </SmallBoxes>
                   </Center>
                 </DateDiv>
@@ -293,8 +305,8 @@ displayTotal = () => {
                 {/* ** TOTAL TIME DISPLAY */}
                 {this.state.saveTimerClicked 
                   ? 
-                      this.state.finishHours + ":" + ("0" + this.state.finishMinutes).slice(-2) + ":" + ("0" + this.state.finishSeconds).slice(-2)
-                      // this.setState(finishSeconds: this.state.finishSeconds)
+                    this.state.finishHours + ":" + ("0" + this.state.finishMinutes).slice(-2) + ":" + ("0" + this.state.finishSeconds).slice(-2)
+                    // this.setState(finishSeconds: this.state.finishSeconds)
                   : 
                     null
                   }
@@ -315,7 +327,7 @@ displayTotal = () => {
               {/* ** LEVEL DISPLAY */} 
               <h4>
               <label>
-                <input name="level" className="level" type="number" value={this.state.value} onChange={this.handleChange} />
+                <Input name="level" className="level" type="number" value={this.state.value} onChange={this.handleChange} />
               </label>
               </h4> 
               </Col>
@@ -332,7 +344,9 @@ displayTotal = () => {
               {/* **ELEVATION DISPLAY */}
               <h4> 
               <label>
-                <input name="elevation" className="elevation" type="number" value={this.state.value} onChange={this.handleChange} />
+                {/* <div className="log-input-fields"> */}
+                <Input name="elevation" className="elevation" type="number" value={this.state.value} onChange={this.handleChange} />
+                {/* </div> */}
               </label>
               </h4> 
               </Col>
@@ -350,7 +364,7 @@ displayTotal = () => {
               <BiometricsDisplay>
               <h4> 
               <label>
-                <input name="mhr" className="mhr" type="number" value={this.state.value} onChange={this.handleChange} />
+                <Input name="mhr" className="mhr" type="number" value={this.state.value} onChange={this.handleChange} />
               </label>
               </h4> 
               </BiometricsDisplay>
@@ -369,7 +383,7 @@ displayTotal = () => {
               <BiometricsDisplay>
               <h4> 
               <label>
-                <input name="calories" className="calories" type="number" value={this.state.value} onChange={this.handleChange} />
+                <Input name="calories" className="calories" type="number" value={this.state.value} onChange={this.handleChange} />
               </label>
               </h4> 
               </BiometricsDisplay>
@@ -388,7 +402,7 @@ displayTotal = () => {
               <BiometricsDisplay>
                 <h4> 
                   <label>
-                    <input name="weight" className="weight" type="number" value={this.state.value} onChange={this.handleChange} />
+                    <Input name="weight" className="weight" type="number" value={this.state.value} onChange={this.handleChange} />
                   </label>
                 </h4> 
               </BiometricsDisplay>
@@ -404,7 +418,6 @@ displayTotal = () => {
         </form>
       </Container>
       </div>
-      
     )
   }
 }

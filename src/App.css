@@ -1,18 +1,18 @@
+/* body {
+  font-family: 'Titillium Web', sans-serif
+} */
 .App {
   text-align: center;
 }
-
 .App-header {
   background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
 }
-
 .App-title {
   font-size: 1.5em;
 }
-
 .row {
   margin-right: 0;
 }
@@ -25,14 +25,84 @@
   height: 4em;
 }
 .bottomSpacing {
+  height: 0em;
+}
+.home-toggler {
+  background: #900000;
+  color: #ddd;
+}
+.sign-in-button {
+  background-color: #000075;
+  border-radius: 10px;
   height: 2em;
 }
-/* input {
-  padding: 0 !important;
+.register-button {
+  color: #eee;
+  background: #007500;
+  border-radius: 10px;
+  height: 2em;
 }
-h4 {
-  padding: 0 !important;
+.register-fields {
+  width: 75%;
+  border-radius: 5px;
+  border-color: #005500;
 }
-.col-6 {
-  height: 2em !important;
-} */
+.add-slogan-title {
+  border: blue 1px;
+  background: #bac0fc;
+}
+.add-slogan-field {
+  border: #bac0fc 2px;
+  border-radius: 10px;
+}
+.add-slogan-button {
+  background: blue;
+  width: 15em;
+}
+.replace-slogan-title {
+  background: #b2ffad;
+}
+.replace-slogan-button {
+  background-color: rgb(0, 68, 0);
+  width: 15em;
+}
+.delete-slogan-title {
+  background-color: #ff9b9b;
+}
+.delete-slogan-button {
+  background-color: red;
+  width: 15em;
+}
+.register-title {
+  color: rgb(0, 68, 0)
+}
+.main-title {
+  size: 3em !important;
+  color: #eee;
+  background-color: #000055;
+  height: 2em;
+  width: 10em;
+  border-color: 1px #750000;
+  border-radius: 40px 15px;
+}
+.field-div {
+  border: 1px;
+  border-color: #ddd;
+}
+input {
+  border-color: #ddd !important;
+  border: inset 2px;
+
+}
+.log-input-fields {
+  max-width: 4px !important;
+}
+
+.sign-in-div {
+  width: 95%;
+}
+
+Input.placeholder {
+  text-align: center;
+
+}

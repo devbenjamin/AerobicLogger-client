@@ -69,23 +69,32 @@ export default class Register extends Component {
       <form onSubmit={
         this.handleRegister
       }>
-        <input name="email" type="text" placeholder="Enter Valid Email" onChange={this.handleOnChange}></input>
+        <div>
+          Your Email Address
+        </div>
+        <input className="register-fields" name="email" type="text" placeholder="Enter Valid Email" onChange={this.handleOnChange}></input>
 
         <br />
-
-        <input name="password" type="password" placeholder="Enter New Password" onChange={this.handleOnChange}></input>
+        <div>
+          Your Password
+        </div>
+        <input className="register-fields"name="password" type="password" placeholder="Enter New Password" onChange={this.handleOnChange}></input>
         
         <br />
-
-        <input name="firstName" type="text" placeholder="First Name" onChange={this.handleOnChange}></input>
+        <div>
+          Your First Name
+        </div>
+        <input className="register-fields"name="firstName" type="text" placeholder="First Name" onChange={this.handleOnChange}></input>
 
         <br />
-
-        <input name="lastName" type="text" placeholder="Last Name" onChange={this.handleOnChange}></input>
+        <div>
+          Your Last Name
+        </div>
+        <input className="register-fields"name="lastName" type="text" placeholder="Last Name" onChange={this.handleOnChange}></input>
 
         <br /><br />
 
-        <input type="submit"></input>
+        <button className="register-button" type="submit">Register</button>
       </form>
       </div>
     )

@@ -14,21 +14,12 @@ class SloganComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showSlogan: ''
-    }
+      showSlogan: '',
+      sloganList: [],
+        }
   }
-  
-  componentDidMount() {
-    const _this = this;
-    this.timer = setInterval(function() {
-      _this.sloganFunc();
-    }, 2000)
-  }
-
-  sloganFunc = () => {
-    if(sloganCount===5) sloganCount=1;
-    
-    let url = `${APIURL}/slogan/${sloganCount}`
+  allSloganFunc = () => {
+    let url = `${APIURL}/slogan/getAll`
     fetch((url), {
       method: 'GET',
       headers: new Headers({
@@ -40,17 +31,75 @@ class SloganComponent extends Component {
         (response) => response.json()
       ).then(
         (data) => {
-          this.setState({ showSlogan: data })
+          console.log("data:",data)
+          this.setState({ sloganList: data })
       })
-    sloganCount++;
+
   }
+
+  componentWillMount() {
+    this.allSloganFunc()
+  }
+
+  allSloganFunc = () => {
+    let url = `${APIURL}/slogan/getAll`
+    fetch((url), {
+      method: 'GET',
+      headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': this.props.token
+      })
+    })
+      .then(
+        (response) => response.json()
+      ).then(
+        (data) => {
+          console.log("data:",data)
+          this.setState({ sloganList: data })
+      })
+
+  }
+  
+  componentDidMount() {
+    console.log('componentdidmounty ', this.state.sloganList)
+    let sloganCount = 0;
+    setInterval(this.sloganFunc = () => {
+      console.log('in sloganFunc:',this.state.sloganFunc)
+      
+      let innerSloganList = this.state.sloganList;
+        if(sloganCount===this.state.sloganList.length) {
+          sloganCount=0;}
+      this.setState({ showSlogan: innerSloganList[sloganCount].title })
+      sloganCount++;
+    }, 1000)
+    }
+  
+  
+
+  //   let url = `${APIURL}/slogan/${sloganCount}`
+  //   fetch((url), {
+  //     method: 'GET',
+  //     headers: new Headers({
+  //         'Content-Type': 'application/json',
+  //         'Authorization': this.props.token
+  //     })
+  //   })
+  //     .then(
+  //       (response) => response.json()
+  //     ).then(
+  //       (data) => {
+  //         this.setState({ showSlogan: data })
+  //     })
+  //   sloganCount++;
+  // }
 
   render(){
     return (
       <div>
         <h3>
           <SloganDiv>
-            {this.state.showSlogan.title}
+            {console.log(this.state.showSlogan)}
+              {this.state.showSlogan}
           </SloganDiv>
         </h3>
       </div> 

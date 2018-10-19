@@ -1,7 +1,7 @@
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
-  Button,
+  Button
 } from 'reactstrap';
 
 // import NavBar from '../components/NavBar';
@@ -71,7 +71,10 @@ class Home extends Component {
   render() {
     return (
       <Container className="App">
-        <h2>Sign In</h2>
+        
+        <h2>Aerobic Logger</h2>
+        <h4>Sign In</h4>
+        <div className="sign-in-div">
         <Form className="form" onSubmit={this.handleSubmit} >
           <Col>
             <FormGroup>
@@ -97,12 +100,11 @@ class Home extends Component {
               />
             </FormGroup>
           </Col>
-          <Button>Submit</Button>
+          <Button className="sign-in-button">Sign In</Button>
         </Form>
-
+        </div>
         <br /><br />
-
-        <h2>Register</h2>
+        <h4>Register</h4>
         <div>
           <Register onRegister={this.onRegistration} />
         </div>
