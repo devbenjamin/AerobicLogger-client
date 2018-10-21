@@ -100,7 +100,6 @@ class SloganInputComponent extends Component {
         'Authorization': localStorage.getItem('token'),
       })
     })
-    
     this.setState ({ rerender: this.state.rerender++ })     
   }
 
@@ -225,7 +224,6 @@ class SloganInputComponent extends Component {
 
 export default SloganInputComponent;
 
-// document.getElementById('listGenerator')= () => {
-//       document.getElementById('listGenerator').innerText = ``
+
 
 
