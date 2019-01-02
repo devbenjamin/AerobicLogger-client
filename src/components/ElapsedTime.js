@@ -53,7 +53,7 @@ export default class ElapsedTime extends Component {
 
   showElapsedTime = (props) => {
     let timeNow = new Date(Date.now());
-    let elapsedEpochTime = timeNow- this.props.epochTimeZero;
+    let elapsedEpochTime = timeNow - this.props.epochTimeZero;
     // let elapsedTime = new Date(elapsedEpochTime).toTimeString();
     // let pauseTime = 0
     // !this.props.pauseTimer ? pauseTime = new Date(Date.now()) 

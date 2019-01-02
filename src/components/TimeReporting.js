@@ -161,6 +161,7 @@ export default class TimeReporting extends Component {
     const date = new Date(Date.now()).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
     return date;
   }
+  
   componentDidMount() {
     const _this = this;
     this.timer = setInterval(function () {

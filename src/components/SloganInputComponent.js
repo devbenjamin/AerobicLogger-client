@@ -88,8 +88,8 @@ class SloganInputComponent extends Component {
   }
 
   handleSubmitDelete = (e) => {
-    console.log('butthole ID:',e.target.id)
-    console.log('butthole className:',e.target.className)
+    console.log('delete ID:',e.target.id)
+    console.log('delete className:',e.target.className)
     e.preventDefault();
 
     fetch(`${APIURL}/slogan/delete/${parseInt(this.state.deleteSlogan)}`, {
@@ -107,17 +107,53 @@ class SloganInputComponent extends Component {
     e.preventDefault();
 
     fetch(`${APIURL}/slogan/create`, {
-  method: 'POST',
-  headers: new Headers({
-    'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('token'),
-    }),
-  body: JSON.stringify({title: this.state.title}),
-  
-    })
+      method: 'POST',
+      headers: ({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      }),
+    body: JSON.stringify({title: this.state.title}),
+      })
     .then(response => response.json())
+    .then(this.setState({ state: this.state }))
   }
 
+  // working code example from Register.js
+  // fetch(`${APIURL}/user/createuser`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   },
+  //   body: JSON.stringify(newUserData)
+  // })
+  // .then(response => response.json())
+  // .then(response => {console.log(response)
+  //   let token = response.sessionToken
+  //   console.log(token)
+  //   localStorage.setItem('token', token)
+
+    // the original code
+  //   fetch(`${APIURL}/slogan/create`, {
+  //     method: 'POST',
+  //     headers: new Headers({
+  //       'Content-Type': 'application/json',
+  //       'Authorization': localStorage.getItem('token')
+  //     }),
+  //   body: JSON.stringify({title: this.state.title}),
+  //     })
+  //   .then(response => response.json())
+  // }
+    
+// ****** be.ow is a code sample copied from online
+    // fetch('https://api.github.com/gists', {
+    //   method: 'POST',
+    //   body: JSON.stringify(opts)
+    // }).then(function(response) {
+    //   return response.json();
+    // }).then(function(data) {
+    //   ChromeSamples.log('Created Gist:', data.html_url);
+    // });
+  
   fetchSlogan = (slogIndex) => {
     let url = `${APIURL}/slogan/${slogIndex}`
     fetch((url), {

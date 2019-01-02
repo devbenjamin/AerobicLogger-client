@@ -53,7 +53,6 @@ export default class Register extends Component {
       console.log(token)
       localStorage.setItem('token', token)
       
-
       if(token !== undefined) {
         this.setState({
            sessionToken: token

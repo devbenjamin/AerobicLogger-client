@@ -98,7 +98,6 @@ class SloganComponent extends Component {
       <div>
         <h3>
           <SloganDiv>
-            {console.log(this.state.showSlogan)}
               {this.state.showSlogan}
           </SloganDiv>
         </h3>
