@@ -99,7 +99,12 @@ export default class TimeReporting extends Component {
       staticFinishTime: timeStamp,
       finalSeconds: epoch - this.state.epochTimeZero ,
       finishTime: this.state.finishHours + ":" + this.state.finishMinutes + ":" + this.state.finishSeconds,
+      forceRerender: 0,
     })
+
+    forceRerenderTR = () => {
+      this.setState({ state: this.state })
+    }
     console.log('onSave saveTimerClicked:',this.state.saveTimerClicked)
     // this.setState({ dbDate: "20" + this.state.todayYear + "-" + this.state.todayMonth + "-" + this.state.todayDate})
     fetch(`http://localhost:3000/sessiondata`, {
@@ -201,6 +206,10 @@ export default class TimeReporting extends Component {
 
   displayTotal = () => {
     this.state.finishHours + ":" + ("0" + this.state.finishMinutes).slice(-2) + ":" + ("0" + this.state.finishSeconds).slice(-2)
+  }
+
+  forceRerender = () => {
+    this.setState({ forceRerender: this.state.forceRerender++})
   }
 
   render(){

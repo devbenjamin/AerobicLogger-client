@@ -23,11 +23,16 @@ class SloganInputComponent extends Component {
       title: '',
       sloganId: '',
       rerender: 0,
+      // forceRerender: 0,
     }
   }
-  
+
+  forceRerenderSIC = () => {
+    this.setState({ state: this.state });
+    console.log("forceRerender() called")
+  }
+
   allSloganFunc = () => {
-  
     let url = `${APIURL}/slogan/getAll`
     fetch((url), {
       method: 'GET',
@@ -36,14 +41,15 @@ class SloganInputComponent extends Component {
           'Authorization': this.props.token
       })
     })
-      .then(
-        (response) => response.json()
-      ).then(
-        (data) => {
-          console.log("data:",data)
-          this.setState({ sloganList: data })
-      })
-      
+    .then(
+      (response) => response.json()
+    )
+    .then(
+      (data) => {
+        console.log("data:",data)
+        this.setState({ sloganList: data })
+      }
+    )
   }
   
   loadSloganArr = () => {
@@ -77,7 +83,7 @@ class SloganInputComponent extends Component {
   this.arr = newSlogList;
   }
   componentWillMount() {
-    this.setState({ rerender: this.state.rerender+1 })
+    this.forceRerenderSIC()
   }
   componentDidMount = () => {
     this.allSloganFunc()
@@ -100,39 +106,26 @@ class SloganInputComponent extends Component {
         'Authorization': localStorage.getItem('token'),
       })
     })
-    this.setState ({ rerender: this.state.rerender++ })     
+    this.forceRerenderSIC();     
   }
 
   handleSubmitAdd = (e) => {
     e.preventDefault();
+    let createSlogan = {title: this.state.title}; 
 
-    fetch(`${APIURL}/slogan/create`, {
-      method: 'POST',
-      headers: ({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      }),
-    body: JSON.stringify({title: this.state.title}),
-      })
-    .then(response => response.json())
-    .then(this.setState({ state: this.state }))
+  fetch(`${APIURL}/slogan/create`, {
+    method: "POST",
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(createSlogan)
+  })
+  // .then(response => response.json())
+    .then(this.forceRerenderSIC())
   }
 
-  // working code example from Register.js
-  // fetch(`${APIURL}/user/createuser`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json"
-  //   },
-  //   body: JSON.stringify(newUserData)
-  // })
-  // .then(response => response.json())
-  // .then(response => {console.log(response)
-  //   let token = response.sessionToken
-  //   console.log(token)
-  //   localStorage.setItem('token', token)
-
-    // the original code
+    //the original code
   //   fetch(`${APIURL}/slogan/create`, {
   //     method: 'POST',
   //     headers: new Headers({
@@ -191,8 +184,13 @@ class SloganInputComponent extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newSlogan)
-    }).then(response => response.json()).then(response => window.alert("Updated!"))
+    })
+    .then(response => response.json())
+    // .then(response => window.alert("Updated!"))
+    .then(this.forceRerenderSIC())
   }
+
+
 
   render(){
     return (
@@ -224,6 +222,7 @@ class SloganInputComponent extends Component {
           <InputStyleFields>
             <div className="field-div">
               <input className="add-style-field" name="title" value={this.state.addSlogan} onChange={this.handleChange} type="text" placeholder ="             Enter Your New Slogan Here" style={{width: 80 + "%" }}/>
+              
             </div>
           </InputStyleFields>
           <br />

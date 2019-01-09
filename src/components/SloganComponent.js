@@ -18,24 +18,25 @@ class SloganComponent extends Component {
       sloganList: [],
         }
   }
-  allSloganFunc = () => {
-    let url = `${APIURL}/slogan/getAll`
-    fetch((url), {
-      method: 'GET',
-      headers: new Headers({
-          'Content-Type': 'application/json',
-          'Authorization': this.props.token
-      })
-    })
-      .then(
-        (response) => response.json()
-      ).then(
-        (data) => {
-          console.log("data:",data)
-          this.setState({ sloganList: data })
-      })
+  // repeated below
+  // allSloganFunc = () => {
+  //   let url = `${APIURL}/slogan/getAll`
+  //   fetch((url), {
+  //     method: 'GET',
+  //     headers: new Headers({
+  //         'Content-Type': 'application/json',
+  //         'Authorization': this.props.token
+  //     })
+  //   })
+  //     .then(
+  //       (response) => response.json()
+  //     ).then(
+  //       (data) => {
+  //         console.log("data:",data)
+  //         this.setState({ sloganList: data })
+  //     })
 
-  }
+  // }
 
   componentWillMount() {
     this.allSloganFunc()
@@ -57,7 +58,6 @@ class SloganComponent extends Component {
           console.log("data:",data)
           this.setState({ sloganList: data })
       })
-
   }
   
   componentDidMount() {
@@ -71,7 +71,7 @@ class SloganComponent extends Component {
           sloganCount=0;}
       this.setState({ showSlogan: innerSloganList[sloganCount].title })
       sloganCount++;
-    }, 1000)
+    }, 5000)
     }
   
   

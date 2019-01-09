@@ -31,6 +31,12 @@ export default class App extends Component {
     localStorage.clear();
   }
 
+  forceRerenderApp = () => {
+    this.serState({ state: this.state })
+  }
+
+  
+
   protectedViews = () => {
   console.log (localStorage.getItem('token'))
   // console.log('sessionToken:',this.state.sessionToken)
